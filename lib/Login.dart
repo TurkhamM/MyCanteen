@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mycanteen/pages/HomePage.dart';
 import 'package:mycanteen/singup.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -130,7 +131,7 @@ class StartState extends State<LoginScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SignUpScreen(),
+                  builder: (context) => HomePage(),
                 ));
           },
           child: Container(

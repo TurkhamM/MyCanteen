@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycanteen/pages/CardPage.dart';
 
 import '../widget/AppBarWidget.dart';
 import '../widget/CategoriesWidget.dart';
+import '../widget/DrawerWidget.dart';
 import '../widget/NewsItemsWidget.dart';
 import '../widget/PopularItemWidget.dart';
 
@@ -106,6 +108,35 @@ class HomePage extends StatelessWidget {
           // NewsItemsWidget
           NewsItemsWidget(),
         ],
+      ),
+      drawer: DrawerWidget(),
+      floatingActionButton: Container(
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(20), boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 10,
+            offset: Offset(0, 3),
+          ),
+        ]),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return CardPage();
+                },
+              ),
+            );
+          },
+          child: Icon(
+            CupertinoIcons.cart,
+            size: 28,
+            color: Colors.red,
+          ),
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }

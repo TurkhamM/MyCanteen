@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycanteen/Login.dart';
+import 'package:mycanteen/pages/HomePage.dart';
 import 'package:mycanteen/singup.dart';
 
 class WelcomeScreen extends StatelessWidget {
