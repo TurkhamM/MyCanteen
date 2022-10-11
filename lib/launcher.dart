@@ -38,9 +38,9 @@ class InitState extends State<SplashScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: new Color(0xff76ff03),
+              color: new Color(0xffd50000),
               gradient: LinearGradient(
-                colors: [(new Color(0xff76ff03)), (new Color(0xffccff90))],
+                colors: [(new Color(0xffd50000)), (new Color(0xffeeff41))],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),

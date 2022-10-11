@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mycanteen/pages/ItemsPage.dart';
 
 class PopularItemWidget extends StatelessWidget {
   @override
@@ -33,11 +34,23 @@ class PopularItemWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          "images/3.png",
-                          height: 130,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ItemsPage();
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            "images/3.png",
+                            height: 130,
+                          ),
                         ),
                       ),
                       Text(

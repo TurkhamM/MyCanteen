@@ -122,7 +122,8 @@ class HomePage extends StatelessWidget {
         ]),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(
+            Navigator.push(
+              context,
               MaterialPageRoute(
                 builder: (context) {
                   return CardPage();
@@ -131,7 +132,7 @@ class HomePage extends StatelessWidget {
             );
           },
           child: Icon(
-            CupertinoIcons.cart,
+            Icons.shopping_cart,
             size: 28,
             color: Colors.red,
           ),

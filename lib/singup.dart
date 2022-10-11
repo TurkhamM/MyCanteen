@@ -18,9 +18,9 @@ class InitState extends State<SignUpScreen> {
           height: 250,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
-            color: new Color(0xff76ff03),
+            color: new Color(0xff64dd17),
             gradient: LinearGradient(
-              colors: [(new Color(0xff76ff03)), new Color(0xffccff90)],
+              colors: [(new Color(0xffeeff41)), new Color(0xff64dd17)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -69,11 +69,11 @@ class InitState extends State<SignUpScreen> {
             ],
           ),
           child: TextField(
-            cursorColor: Color(0xff76ff03),
+            cursorColor: Color(0xff64dd17),
             decoration: InputDecoration(
               icon: Icon(
                 Icons.person,
-                color: Color(0xff76ff03),
+                color: Color(0xff64dd17),
               ),
               hintText: "Full Name",
               enabledBorder: InputBorder.none,
@@ -97,11 +97,11 @@ class InitState extends State<SignUpScreen> {
             ],
           ),
           child: TextField(
-            cursorColor: Color(0xff76ff03),
+            cursorColor: Color(0xff64dd17),
             decoration: InputDecoration(
               icon: Icon(
                 Icons.email,
-                color: Color(0xff76ff03),
+                color: Color(0xff64dd17),
               ),
               hintText: "Email",
               enabledBorder: InputBorder.none,
@@ -125,12 +125,12 @@ class InitState extends State<SignUpScreen> {
             ],
           ),
           child: TextField(
-            cursorColor: Color(0xff76ff03),
+            cursorColor: Color(0xff64dd17),
             decoration: InputDecoration(
-              focusColor: Color(0xff76ff03),
+              focusColor: Color(0xff64dd17),
               icon: Icon(
                 Icons.phone,
-                color: Color(0xff76ff03),
+                color: Color(0xff64dd17),
               ),
               hintText: "Phone Number",
               enabledBorder: InputBorder.none,
@@ -154,12 +154,12 @@ class InitState extends State<SignUpScreen> {
             ],
           ),
           child: TextField(
-            cursorColor: Color(0xff76ff03),
+            cursorColor: Color(0xff64dd17),
             decoration: InputDecoration(
-              focusColor: Color(0xff76ff03),
+              focusColor: Color(0xff64dd17),
               icon: Icon(
                 Icons.vpn_key,
-                color: Color(0xff76ff03),
+                color: Color(0xff64dd17),
               ),
               hintText: "Enter Password",
               enabledBorder: InputBorder.none,
@@ -178,7 +178,7 @@ class InitState extends State<SignUpScreen> {
             height: 54,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [(new Color(0xff76ff03)), new Color(0xffccff90)],
+                  colors: [(new Color(0xff64dd17)), (new Color(0xffeeff41))],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight),
               borderRadius: BorderRadius.circular(50),
@@ -209,7 +209,7 @@ class InitState extends State<SignUpScreen> {
                 child: Text(
                   "Login Now",
                   style: TextStyle(
-                    color: Color(0xff76ff03),
+                    color: Color(0xff64dd17),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

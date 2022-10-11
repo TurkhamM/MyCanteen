@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycanteen/welcome.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -34,68 +35,91 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           // title list view
-          ListTile(
-            leading: Icon(
-              CupertinoIcons.home,
-              color: Colors.green,
-            ),
-            title: Text(
-              "BERANDA",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          // title list view
-          ListTile(
-            leading: Icon(
-              CupertinoIcons.person,
-              color: Colors.green,
-            ),
-            title: Text(
-              "AKUN SAYA",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Container(
+            child: ListTile(
+              leading: Icon(
+                CupertinoIcons.home,
+                color: Colors.green,
+              ),
+              title: Text(
+                "BERANDA",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           // title list view
-          ListTile(
-            leading: Icon(
-              CupertinoIcons.cart_fill,
-              color: Colors.green,
-            ),
-            title: Text(
-              "ORDER",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          // title list view
-          ListTile(
-            leading: Icon(
-              CupertinoIcons.heart_fill,
-              color: Colors.green,
-            ),
-            title: Text(
-              "FAVORIT",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Container(
+            child: ListTile(
+              leading: Icon(
+                CupertinoIcons.person,
+                color: Colors.green,
+              ),
+              title: Text(
+                "AKUN SAYA",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           // title list view
-          ListTile(
-            leading: Icon(
-              CupertinoIcons.settings,
-              color: Colors.green,
+          Container(
+            child: ListTile(
+              leading: Icon(
+                CupertinoIcons.cart_fill,
+                color: Colors.green,
+              ),
+              title: Text(
+                "ORDER",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-            title: Text(
-              "PENGATURAN",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          // title list view
+          Container(
+            child: ListTile(
+              leading: Icon(
+                CupertinoIcons.heart_fill,
+                color: Colors.green,
+              ),
+              title: Text(
+                "FAVORIT",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-          ), // title list view
-          ListTile(
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.green,
+          ),
+          // title list view
+          Container(
+            child: ListTile(
+              leading: Icon(
+                CupertinoIcons.settings,
+                color: Colors.green,
+              ),
+              title: Text(
+                "PENGATURAN",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-            title: Text(
-              "KELUAR",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          // title list view
+          Container(
+            child: ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return WelcomeScreen();
+                    },
+                  ),
+                );
+              },
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.green,
+              ),
+              title: Text(
+                "KELUAR",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
