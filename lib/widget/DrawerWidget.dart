@@ -2,6 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycanteen/Login.dart';
+import 'package:mycanteen/pages/CardPage.dart';
+import 'package:mycanteen/pages/HomePage.dart';
+import 'package:mycanteen/pages/SetinggUI.dart';
 import 'package:mycanteen/welcome.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -37,6 +41,16 @@ class DrawerWidget extends StatelessWidget {
           // title list view
           Container(
             child: ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomePage();
+                    },
+                  ),
+                );
+              },
               leading: Icon(
                 CupertinoIcons.home,
                 color: Colors.green,
@@ -63,8 +77,18 @@ class DrawerWidget extends StatelessWidget {
           // title list view
           Container(
             child: ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CardPage();
+                    },
+                  ),
+                );
+              },
               leading: Icon(
-                CupertinoIcons.cart_fill,
+                CupertinoIcons.cart,
                 color: Colors.green,
               ),
               title: Text(
@@ -89,6 +113,7 @@ class DrawerWidget extends StatelessWidget {
           // title list view
           Container(
             child: ListTile(
+              onTap: () {},
               leading: Icon(
                 CupertinoIcons.settings,
                 color: Colors.green,
@@ -107,7 +132,7 @@ class DrawerWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return WelcomeScreen();
+                      return Welcome();
                     },
                   ),
                 );

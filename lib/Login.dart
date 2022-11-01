@@ -1,194 +1,212 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:mycanteen/custombuttom.dart';
 import 'package:mycanteen/pages/HomePage.dart';
 import 'package:mycanteen/singup.dart';
+import 'package:mycanteen/themes.dart';
+import 'package:mycanteen/widget/ceckbox.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:flutter/src/scheduler/ticker.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => StartState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class StartState extends State<LoginScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return initWidget();
+class _LoginPageState extends State<LoginPage> {
+  bool passwordVisible = false;
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  Future login() async {
+    if (username.text.isEmpty && password.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Data Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (username.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Username Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (password.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Password Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else {
+      ProgressDialog pd = ProgressDialog(context: context);
+      pd.show(
+        max: 100,
+        msg: 'Login....',
+        progressBgColor: Colors.transparent,
+      );
+      for (int i = 0; i <= 100; i++) {
+        pd.update(value: i);
+        i++;
+        await Future.delayed(Duration(milliseconds: 50));
+      }
+
+      var url =
+          Uri.http("192.168.1.15", '/login/api/login.php', {'q': '{http}'});
+      var response = await http.post(url, body: {
+        "username": username.text,
+        "password": password.text,
+      });
+      var data = json.decode(response.body);
+      if (data.toString() == "Success") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      } else {
+        Alert(context: context, title: "Login Gagal", type: AlertType.error)
+            .show();
+      }
+    }
   }
 
-  initWidget() {
+  void togglePassword() {
+    setState(() {
+      passwordVisible = !passwordVisible;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Column(
-      children: [
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
-            color: new Color(0xff76ff03),
-            gradient: LinearGradient(
-              colors: [(new Color(0xff76ff03)), new Color(0xffccff90)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(24, 40, 24, 0),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 50),
-                child: Image.asset(
-                  "images/LG.png",
-                  height: 150,
-                  width: 150,
-                ),
+            children: <Widget>[
+              SizedBox(
+                height: 32,
               ),
-              Container(
-                margin: EdgeInsets.only(right: 20, top: 20),
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+              Form(
+                  child: Column(
+                children: [
+                  Container(
+                    height: 150,
+                    width: 200,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("images/LG.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
-              )
-            ],
-          )),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 70),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.grey[200],
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 50,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff76ff03),
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.email,
-                color: Color(0xff76ff03),
-              ),
-              hintText: "Enter Email",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Color(0xffEEEEEE),
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 20),
-                  blurRadius: 100,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff76ff03),
-            decoration: InputDecoration(
-              focusColor: Color(0xff76ff03),
-              icon: Icon(
-                Icons.vpn_key,
-                color: Color(0xff76ff03),
-              ),
-              hintText: "Enter Password",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          alignment: Alignment.centerRight,
-          child: GestureDetector(
-            onTap: () {
-              // Write Click Listener Code Here
-            },
-            child: Text("Forget Password?"),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ));
-          },
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 70),
-            padding: EdgeInsets.only(left: 20, right: 20),
-            height: 54,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [(new Color(0xff76ff03)), new Color(0xffccff90)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight),
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.grey[200],
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: Color(0xffEEEEEE)),
-              ],
-            ),
-            child: Text(
-              "LOGIN",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Don't Have Any Account?  "),
-              GestureDetector(
-                child: Text(
-                  "Register Now",
-                  style: TextStyle(
-                    color: Color(0xff76ff03),
-                    fontWeight: FontWeight.bold,
+                ],
+              )),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Masuk MyCanteen',
+                    style: heading1.copyWith(color: textBlack),
                   ),
-                ),
-                onTap: () {
-                  // Write Tap Code Here.
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUpScreen(),
-                      ));
-                },
-              )
+                ],
+              ),
+              SizedBox(
+                height: 48,
+              ),
+              Form(
+                  child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: TextFormField(
+                      controller: username,
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: textWhiteGrey,
+                        borderRadius: BorderRadius.circular(5)),
+                    child: TextFormField(
+                      controller: password,
+                      obscureText: !passwordVisible,
+                      decoration: InputDecoration(
+                          hintText: 'Password',
+                          hintStyle: heading6.copyWith(color: textGrey),
+                          suffixIcon: IconButton(
+                            color: textGrey,
+                            splashRadius: 1,
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined),
+                            onPressed: togglePassword,
+                          ),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none)),
+                    ),
+                  )
+                ],
+              )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterPage()));
+                    },
+                    child: Text(
+                      'Belum Punya Akun?',
+                      style: TextStyle(fontSize: 13, color: Color(0xff64dd17)),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomCheckbox(),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    'Ingatkan Saya',
+                    style: regular16pt,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              CustomPrimaryButton(
+                  buttonColor: Color(0xff64dd17),
+                  textValue: 'Login',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    login();
+                  }),
             ],
           ),
-        )
-      ],
-    )));
+        ),
+      ),
+    );
   }
 }

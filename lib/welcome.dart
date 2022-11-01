@@ -1,74 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:mycanteen/Login.dart';
-import 'package:mycanteen/pages/HomePage.dart';
+import 'package:mycanteen/custombuttom.dart';
 import 'package:mycanteen/singup.dart';
+import 'package:mycanteen/themes.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            "MyCanteen",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/LG.png"),
+            fit: BoxFit.cover,
           ),
-          Image.asset(
-            "images/chat.png",
-            height: 450,
-            width: 450,
-          ),
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(29),
-              child: FlatButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-                color: Color(0xff76ff03),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LoginScreen();
-                      },
-                    ),
-                  );
-                },
-                child: Text(
-                  "LOGIN",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: 630,
+            ),
+            Expanded(
+              child: Container(
+                // color: Colors.amber,
+                width: 100,
               ),
             ),
-          ),
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(29),
-              child: FlatButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-                color: Color(0xffccff90),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return SignUpScreen();
-                      },
-                    ),
-                  );
-                },
-                child: Text(
-                  "REGISTER",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
+            GestureDetector(
+              child: CustomPrimaryButton(
+                  buttonColor: Color(0xff64dd17),
+                  textValue: 'Masuk',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              child: CustomPrimaryButton(
+                  buttonColor: Color(0xffc6ff00),
+                  textValue: 'Daftar',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterPage()));
+                  }),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

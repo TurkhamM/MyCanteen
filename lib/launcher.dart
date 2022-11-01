@@ -24,7 +24,7 @@ class InitState extends State<SplashScreen> {
 
   LoginRoute() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        context, MaterialPageRoute(builder: (context) => Welcome()));
   }
 
   @override
@@ -38,9 +38,9 @@ class InitState extends State<SplashScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: new Color(0xffd50000),
+              color: new Color(0xff1b5e20),
               gradient: LinearGradient(
-                colors: [(new Color(0xffd50000)), (new Color(0xffeeff41))],
+                colors: [(new Color(0xff1b5e20)), (new Color(0xffeeff41))],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),

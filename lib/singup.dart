@@ -1,227 +1,273 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:mycanteen/Login.dart';
+import 'package:mycanteen/custombuttom.dart';
+import 'package:mycanteen/pages/HomePage.dart';
+import 'package:mycanteen/themes.dart';
+import 'package:mycanteen/widget/ceckbox.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
-class SignUpScreen extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({
+    Key? key,
+  }) : super(key: key);
   @override
-  State<StatefulWidget> createState() => InitState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class InitState extends State<SignUpScreen> {
-  @override
-  Widget build(BuildContext context) => initWidget();
+class _RegisterPageState extends State<RegisterPage> {
+  bool passwordVisible = false;
+  bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController username = TextEditingController();
+  TextEditingController nama = TextEditingController();
+  TextEditingController password = TextEditingController();
 
-  Widget initWidget() {
+  Future regrister() async {
+    // print(data);
+    if (username.text.isEmpty && nama.text.isEmpty && password.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Data Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (username.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Username Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (nama.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Nama Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (password.text.isEmpty) {
+      Alert(
+              context: context,
+              title: "Password Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else {
+      ProgressDialog pd = ProgressDialog(context: context);
+
+      /// Set options
+      /// Max and msg required
+      pd.show(
+        max: 100,
+        msg: 'Daftar....',
+        progressBgColor: Colors.transparent,
+      );
+      for (int i = 0; i <= 100; i++) {
+        /// You don't need to update state, just pass the value.
+        /// Only value required
+        pd.update(value: i);
+        i++;
+        await Future.delayed(Duration(milliseconds: 50));
+      }
+      var url =
+          Uri.http("192.168.1.15", "/login/api/register.php", {'q': '{http}'});
+      var response = await http.post(url, body: {
+        "username": username.text,
+        "nama": nama.text,
+        "password": password.text
+      });
+      var data = json.decode(response.body);
+      if (data.toString() == "Error") {
+        Alert(
+                context: context,
+                title: "Username Sudah Terdaftar",
+                type: AlertType.warning)
+            .show();
+        ;
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+        Alert(
+                context: context,
+                title: "Berhasil Membuat Akun",
+                type: AlertType.success)
+            .show();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void togglePassword() {
+    setState(() {
+      passwordVisible = !passwordVisible;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Column(
-      children: [
-        Container(
-          height: 250,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(90)),
-            color: new Color(0xff64dd17),
-            gradient: LinearGradient(
-              colors: [(new Color(0xffeeff41)), new Color(0xff64dd17)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 50),
-                child: Image.asset(
-                  "images/LG.png",
-                  height: 150,
-                  width: 150,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 20, top: 20),
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  "Register",
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+          child: Padding(
+        padding: EdgeInsets.fromLTRB(24, 40, 24, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Daftar Akun',
                   style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 34,
+                      color: textBlack,
+                      fontWeight: FontWeight.bold),
                 ),
-              )
-            ],
-          )),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 70),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.grey[200],
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 50,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff64dd17),
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.person,
-                color: Color(0xff64dd17),
-              ),
-              hintText: "Full Name",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.grey[200],
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 10),
-                  blurRadius: 50,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff64dd17),
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.email,
-                color: Color(0xff64dd17),
-              ),
-              hintText: "Email",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Color(0xffEEEEEE),
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 20),
-                  blurRadius: 100,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff64dd17),
-            decoration: InputDecoration(
-              focusColor: Color(0xff64dd17),
-              icon: Icon(
-                Icons.phone,
-                color: Color(0xff64dd17),
-              ),
-              hintText: "Phone Number",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-          padding: EdgeInsets.only(left: 20, right: 20),
-          height: 54,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Color(0xffEEEEEE),
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 20),
-                  blurRadius: 100,
-                  color: Color(0xffEEEEEE)),
-            ],
-          ),
-          child: TextField(
-            cursorColor: Color(0xff64dd17),
-            decoration: InputDecoration(
-              focusColor: Color(0xff64dd17),
-              icon: Icon(
-                Icons.vpn_key,
-                color: Color(0xff64dd17),
-              ),
-              hintText: "Enter Password",
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Write Click Listener Code Here.
-          },
-          child: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 70),
-            padding: EdgeInsets.only(left: 20, right: 20),
-            height: 54,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [(new Color(0xff64dd17)), (new Color(0xffeeff41))],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight),
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.grey[200],
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: Color(0xffEEEEEE)),
+                SizedBox(
+                  height: 20,
+                ),
+                Image.asset(
+                  'images/LG.png',
+                  width: 99,
+                  height: 4,
+                )
               ],
             ),
-            child: Text(
-              "REGISTER",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            SizedBox(
+              height: 48,
             ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Have Already Member?  "),
-              GestureDetector(
-                child: Text(
-                  "Login Now",
-                  style: TextStyle(
-                    color: Color(0xff64dd17),
-                    fontWeight: FontWeight.bold,
-                  ),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14)),
+                      child: TextFormField(
+                        controller: username,
+                        decoration: InputDecoration(
+                            hintText: 'Username',
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14)),
+                      child: TextFormField(
+                        controller: nama,
+                        decoration: InputDecoration(
+                            hintText: 'Nama',
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14)),
+                      child: TextFormField(
+                        controller: password,
+                        obscureText: !passwordVisible,
+                        decoration: InputDecoration(
+                            hintText: 'Password ',
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            suffixIcon: IconButton(
+                              color: textGrey,
+                              splashRadius: 1,
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined),
+                              onPressed: () {
+                                setState(() {
+                                  passwordVisible = !passwordVisible;
+                                });
+                              },
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    )
+                  ],
+                )),
+            SizedBox(
+              height: 32,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomCheckbox(),
+                SizedBox(
+                  width: 12,
                 ),
-                onTap: () {
-                  // Write Tap Code Here.
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
-        )
-      ],
-    )));
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dengan membuat akun, Anda menyetujui',
+                      style: regular16pt.copyWith(color: textGrey),
+                    ),
+                    Text(
+                      'Syarat & Ketentuan',
+                      style: regular16pt.copyWith(color: Color(0xff64dd17)),
+                    )
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            CustomPrimaryButton(
+                buttonColor: Color(0xff64dd17),
+                textValue: 'Daftar',
+                textColor: Colors.white,
+                onPressed: () {
+                  regrister();
+                }),
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Saya sudah punya akun? ',
+                  style: regular16pt.copyWith(color: textGrey),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text(
+                    'Login',
+                    style: regular16pt.copyWith(color: Color(0xff64dd17)),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      )),
+    );
   }
 }

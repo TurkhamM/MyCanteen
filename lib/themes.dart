@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xff76ff03);
-const kSecondaryColor = Color(0xFF59706F);
-const kDarkGreyColor = Color(0xFFA8A8A8);
-const kWhiteColor = Color(0xFFFFFFFF);
-const kZambeziColor = Color(0xFF5B5B5B);
-const kBlackColor = Color(0xFF272726);
-const kTextFieldColor = Color(0xFF979797);
+Color kprimaryBlue = Color.fromARGB(255, 30, 111, 92);
+Color colorLight = Color.fromARGB(255, 40, 150, 114);
+Color terang = Color.fromARGB(255, 41, 187, 137);
+Color textBlack = Color(0xff222222);
+Color textGrey = Color(0xff94959b);
+Color textWhiteGrey = Color(0xfff1f1f5);
 
-const kDefaultPadding = EdgeInsets.symmetric(horizontal: 30);
-
-TextStyle titleText =
-    TextStyle(color: kPrimaryColor, fontSize: 32, fontWeight: FontWeight.w700);
-TextStyle subTitle = TextStyle(
-    color: kSecondaryColor, fontSize: 18, fontWeight: FontWeight.w500);
-TextStyle textButton = TextStyle(
-  color: kPrimaryColor,
-  fontSize: 18,
+TextStyle heading2 = TextStyle(
+  fontSize: 24,
   fontWeight: FontWeight.w700,
+);
+
+TextStyle heading1 = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w800,
+);
+
+TextStyle heading5 = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+);
+
+TextStyle heading6 = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+);
+
+TextStyle regular16pt = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
 );
