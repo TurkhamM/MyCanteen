@@ -22,22 +22,22 @@ class _RegisterPageState extends State<RegisterPage> {
   bool passwordVisible = false;
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController username = TextEditingController();
+  TextEditingController nis = TextEditingController();
   TextEditingController nama = TextEditingController();
   TextEditingController password = TextEditingController();
 
   Future regrister() async {
     // print(data);
-    if (username.text.isEmpty && nama.text.isEmpty && password.text.isEmpty) {
+    if (nis.text.isEmpty && nama.text.isEmpty && password.text.isEmpty) {
       Alert(
               context: context,
               title: "Data Tidak Boleh Kosong",
               type: AlertType.warning)
           .show();
-    } else if (username.text.isEmpty) {
+    } else if (nis.text.isEmpty) {
       Alert(
               context: context,
-              title: "Username Tidak Boleh Kosong",
+              title: "Nis Tidak Boleh Kosong",
               type: AlertType.warning)
           .show();
     } else if (nama.text.isEmpty) {
@@ -50,6 +50,12 @@ class _RegisterPageState extends State<RegisterPage> {
       Alert(
               context: context,
               title: "Password Tidak Boleh Kosong",
+              type: AlertType.warning)
+          .show();
+    } else if (nis.text.length < 4) {
+      Alert(
+              context: context,
+              title: "Masukkan nis dengan benar",
               type: AlertType.warning)
           .show();
     } else {
@@ -70,9 +76,9 @@ class _RegisterPageState extends State<RegisterPage> {
         await Future.delayed(Duration(milliseconds: 50));
       }
       var url =
-          Uri.http("192.168.1.15", "/login/api/register.php", {'q': '{http}'});
+          Uri.http("192.168.1.45", "/login/api/register.php", {'q': '{http}'});
       var response = await http.post(url, body: {
-        "username": username.text,
+        "nis": nis.text,
         "nama": nama.text,
         "password": password.text
       });
@@ -80,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
       if (data.toString() == "Error") {
         Alert(
                 context: context,
-                title: "Username Sudah Terdaftar",
+                title: "Nis Sudah Terdaftar",
                 type: AlertType.warning)
             .show();
         ;
@@ -153,9 +159,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: textWhiteGrey,
                           borderRadius: BorderRadius.circular(14)),
                       child: TextFormField(
-                        controller: username,
+                        controller: nis,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            hintText: 'Username',
+                            hintText: 'Nis',
                             hintStyle: heading6.copyWith(color: textGrey),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none)),

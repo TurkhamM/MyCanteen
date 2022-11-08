@@ -74,7 +74,7 @@ class NewsItemsWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.red,
+                                color: Color(0xff64dd17),
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -174,7 +174,7 @@ class NewsItemsWidget extends StatelessWidget {
                             "Rp.3000",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.red,
+                                color: Color(0xff64dd17),
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -274,7 +274,7 @@ class NewsItemsWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.red,
+                                color: Color(0xff64dd17),
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -374,7 +374,7 @@ class NewsItemsWidget extends StatelessWidget {
                             "Rp.3000",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.red,
+                                color: Color(0xff64dd17),
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

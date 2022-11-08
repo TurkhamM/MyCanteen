@@ -17,20 +17,20 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool passwordVisible = false;
-  TextEditingController username = TextEditingController();
+  TextEditingController nama = TextEditingController();
   TextEditingController password = TextEditingController();
 
   Future login() async {
-    if (username.text.isEmpty && password.text.isEmpty) {
+    if (nama.text.isEmpty && password.text.isEmpty) {
       Alert(
               context: context,
               title: "Data Tidak Boleh Kosong",
               type: AlertType.warning)
           .show();
-    } else if (username.text.isEmpty) {
+    } else if (nama.text.isEmpty) {
       Alert(
               context: context,
-              title: "Username Tidak Boleh Kosong",
+              title: "Nama Tidak Boleh Kosong",
               type: AlertType.warning)
           .show();
     } else if (password.text.isEmpty) {
@@ -53,9 +53,9 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       var url =
-          Uri.http("192.168.1.15", '/login/api/login.php', {'q': '{http}'});
+          Uri.http("192.168.1.45", '/login/api/login.php', {'q': '{http}'});
       var response = await http.post(url, body: {
-        "username": username.text,
+        "nama": nama.text,
         "password": password.text,
       });
       var data = json.decode(response.body);
@@ -128,9 +128,9 @@ class _LoginPageState extends State<LoginPage> {
                         color: textWhiteGrey,
                         borderRadius: BorderRadius.circular(5)),
                     child: TextFormField(
-                      controller: username,
+                      controller: nama,
                       decoration: InputDecoration(
-                          hintText: 'Username',
+                          hintText: 'Nama',
                           hintStyle: heading6.copyWith(color: textGrey),
                           border:
                               OutlineInputBorder(borderSide: BorderSide.none)),

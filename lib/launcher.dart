@@ -18,7 +18,7 @@ class InitState extends State<SplashScreen> {
   }
 
   StartTimer() async {
-    var duration = Duration(seconds: 2);
+    var duration = Duration(seconds: 3);
     return new Timer(duration, LoginRoute);
   }
 
@@ -48,7 +48,12 @@ class InitState extends State<SplashScreen> {
           ),
           Center(
             child: Container(
-              child: Image.asset("images/LG.png"),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/gm.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
         ],

@@ -73,7 +73,7 @@ class PopularItemWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Colors.red,
+                              color: Color(0xff64dd17),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -140,7 +140,7 @@ class PopularItemWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Colors.red,
+                              color: Color(0xff64dd17),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -207,7 +207,7 @@ class PopularItemWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Colors.red,
+                              color: Color(0xff64dd17),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -272,7 +272,7 @@ class PopularItemWidget extends StatelessWidget {
                             "Rp.5000",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Colors.red,
+                              color: Color(0xff64dd17),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
